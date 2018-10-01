@@ -5,17 +5,22 @@ import random as rdm
 
 WIDTH_SC = 480
 HEIGHT_SC = 640
+
 class Meteor(pg.sprite.Sprite):
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
         self.base_name = "sprites/meteor/meteor000"+(str(rdm.randrange(1,12)))+".png"
-        self.img = pg.transform.scale(load_img(str(self.base_name), True), [90,60])
+        self.img = pg.transform.scale(load_img(str(self.base_name), True), [90,90])
         self.rect = self.img.get_rect()
-        self.rect.centerx ,self.rect.centery = rdm.randrange(0, WIDTH_SC), 1
+        self.rect.centerx ,self.rect.centery = rdm.randrange(0,WIDTH_SC), rdm.randrange(-HEIGHT_SC * 2, 0)
         self.speed = 0.2
 
     def update(self, time):
         self.rect.centery += self.speed * time
+
+    def draw(self, surface):
+        surface.blit(self.img, (self.rect.centerx, self.rect.centery))
+
 
 class AirPlane(pg.sprite.Sprite):
     """docstring for AirPlane."""
@@ -25,6 +30,7 @@ class AirPlane(pg.sprite.Sprite):
         self.rect = self.img.get_rect()
         self.rect.centerx, self.rect.centery = WIDTH_SC / 2, HEIGHT_SC / 2
         self.speed = [1, -1]
+        self.lives = 3
 
     def update(self, time, direction = None):
         if direction == "right":
@@ -43,7 +49,7 @@ class AirPlane(pg.sprite.Sprite):
 
     def check_collision(self, object):
         if pg.sprite.collide_rect(self, object):
-            print("Hola")
+            return True
 
 def load_img(file, transparent = False):
     try:
@@ -63,6 +69,8 @@ def main():
     plane = AirPlane()
     m = Meteor()
     meteors = []
+    for x in range(15):
+        meteors.append(Meteor())
 
     while True:
         time = clock.tick(60)
@@ -80,12 +88,22 @@ def main():
                 if event.key == pg.K_UP:
                     plane.update(time, "top")
         plane.update(time)
-        plane.check_collision(m)
         m.update(time)
         screen.blit(bg_img,(0,0))
         screen.blit(plane.img, plane.rect)
         screen.blit(m.img, m.rect)
-        pg.display.flip()
+        for meteor in meteors:
+            meteor.update(time)
+            meteor.draw(screen)
+            #screen.blit(meteor.img, meteor.rect)
+            for meteor  in meteors:
+                #pg.display.flip()
+                if plane.check_collision(meteor):
+                    plane.lives -= 1
+                    if(plane.lives == 0):
+                        print("Game Over!")
+                        sys.exit(0)
+        pg.display.update()
 
 if __name__ == '__main__':
     pg.init()
