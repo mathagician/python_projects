@@ -1,8 +1,10 @@
-# python_projects
+# Python Projects
 
-This respo has been created with the aim of helping people who have just started coding by giving them python examples, projects so that they can improve their understanding,skills in this subject.
+Hello!
 
-Note :
-1) Only submit the projects which contains python 3.x
-2) If the project has many files make a sub folser then add your project.
-3) Make sure to include comments so that beginners can understand it easily
+This repo has been created with the goal of giving new programmers a simple way to check out code of more advanced users. This allows for faster and better learning and will also help with understanding more complex algorithms. 
+All contributions of programs are welcome, but please consider the following:
+
+1. Only submit projects that have been written in Python 3.x
+2. Projects with many subfolders or many files have to go into their own subfolder
+3. All projects have to be commented, so the beginners can understand it.
