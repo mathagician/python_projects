@@ -12,7 +12,8 @@ def calculate_bmi(weight, height):
         result = 'normal weight.'
     elif 25 < bmi <= 29.9:
         result = 'overweight.'
-    else: result = 'obesity.'
+    else:
+        result = 'obesity.'
 
     return f'Your BMI is {bmi}, that is {result}'
 
