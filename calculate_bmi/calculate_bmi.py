@@ -21,6 +21,4 @@ if __name__ == '__main__':
     weight = float(input('Your weight in kilos: '))
     height = float(input('Your height in meters: '))
     bmi = calculate_bmi(weight, height)
-
-    # bmi = calculate_bmi(65, 1.66)
     print(bmi)
