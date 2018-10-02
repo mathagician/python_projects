@@ -24,15 +24,21 @@ reddit = praw.Reddit(client_id = client_key,
 
 # default to 1 post search per sub
 num_posts = 1
+
+# if number_of_posts not entered as command line arg
 if len(sys.argv) < 2:
 	print('# posts not entered. Defaulting to 1 post per sub')
 
+# if args entered
 else:
 	try:
+		# try casting the argument to an int
 		num_posts = int(sys.argv[1])
+		# negative number handling
 		if num_posts < 0:
 			print('-ve entered. Defaulting to 1 post per sub')
 			num_posts = 1
+	# non integer entered handling
 	except ValueError:
 		print('Enter integer. Defaulting to 1 post per sub.')
 
